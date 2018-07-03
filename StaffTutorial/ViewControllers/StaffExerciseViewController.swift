@@ -9,10 +9,25 @@
 import UIKit
 
 class StaffExerciseViewController: UIViewController {
-
+    
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var staffView: StaffView!
+    
+    var nextNoteToGuess: Note = Note()
+    let clef = Clef.treble
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        nextNoteToGuess = clef.generateRandomNote()
+        
+        for subview in stackView.subviews {
+            subview.layer.borderColor = UIColor.black.cgColor
+            subview.layer.borderWidth = 1
+        }
+        
+        staffView.clef = clef
+        staffView.note = nextNoteToGuess
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +35,19 @@ class StaffExerciseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func noteClicked(_ clickedButton: UIButton) {
+        guard let guessedNoteNameIndex = stackView.subviews.index(of: clickedButton) else {
+            return
+        }
+        
+        let guessedNoteName = NoteName(rawValue: guessedNoteNameIndex)
+        
+        if(guessedNoteName == nextNoteToGuess.noteName) {
+            print("YAY!")
+        } else {
+            print("BOO!")
+        }
+    }
+    
 }
 

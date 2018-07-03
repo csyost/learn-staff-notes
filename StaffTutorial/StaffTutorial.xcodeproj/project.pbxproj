@@ -14,6 +14,7 @@
 		F98DE37F20DECBBF00FA4993 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98DE37D20DECBBF00FA4993 /* LaunchScreen.storyboard */; };
 		F98DE38920DF091A00FA4993 /* StaffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DE38820DF091A00FA4993 /* StaffView.swift */; };
 		F98DE38C20DF0B1A00FA4993 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DE38B20DF0B1A00FA4993 /* Note.swift */; };
+		F9F70C8C20EB47CE00F15E4F /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F70C8B20EB47CE00F15E4F /* Staff.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F98DE38020DECBC000FA4993 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F98DE38820DF091A00FA4993 /* StaffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffView.swift; sourceTree = "<group>"; };
 		F98DE38B20DF0B1A00FA4993 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		F9F70C8B20EB47CE00F15E4F /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				F98DE38B20DF0B1A00FA4993 /* Note.swift */,
+				F9F70C8B20EB47CE00F15E4F /* Staff.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F70C8C20EB47CE00F15E4F /* Staff.swift in Sources */,
 				F98DE38920DF091A00FA4993 /* StaffView.swift in Sources */,
 				F98DE37720DECBBE00FA4993 /* StaffExerciseViewController.swift in Sources */,
 				F98DE37520DECBBE00FA4993 /* AppDelegate.swift in Sources */,
