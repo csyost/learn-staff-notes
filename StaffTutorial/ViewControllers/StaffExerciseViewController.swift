@@ -44,7 +44,6 @@ class StaffExerciseViewController: UIViewController {
     private func generateNewNote() {
         nextNoteToGuess = clef.generateRandomNote()
         staffView.note = nextNoteToGuess
-        print("next note: \(nextNoteToGuess)")
     }
     
     private func updateScore() {
