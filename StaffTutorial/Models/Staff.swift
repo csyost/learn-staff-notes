@@ -48,9 +48,9 @@ public enum Clef {
     }
 
     func generateRandomNote(accidentals: Bool = true) -> Note {
-        let randBlah = Note.numSteps(from: bottomMostNote, to: topMostNote)
-        print(randBlah)
-        let newStep = Int(arc4random_uniform(UInt32(randBlah)))
+        let randValue = Note.numSteps(from: bottomMostNote, to: topMostNote)
+        print(randValue)
+        let newStep = Int(arc4random_uniform(UInt32(randValue)))
         return Note.noteOffsetFrom(bottomMostNote, by: newStep)
     }
 }

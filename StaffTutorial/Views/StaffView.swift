@@ -53,26 +53,25 @@ public class StaffView: UIView {
         if let noteToDraw = note {
             // Negate to convert to a positive y offset
             let noteWidth = noteHeight * 1.2
-            let noteScalar = noteToDraw.globalScalar()
-            let yOffset = yOffsetFromScalar(rangeOfSteps.topScalar - noteScalar, noteHeight: noteHeight)
+            let relativeNoteScalar = rangeOfSteps.topScalar - noteToDraw.globalScalar()
+            let yOffset = yOffsetFromScalar(relativeNoteScalar, noteHeight: noteHeight)
             let noteRect = CGRect(x: rect.midX - noteWidth / 2.0, y: yOffset - noteHeight / 2.0, width: noteWidth, height: noteHeight)
             
             context.strokeEllipse(in: noteRect)
-            
-//            for i in 0 ..< clef.firstLineIndexToDraw {
-//                if(i * 2 >= stepsToDraw) {
-//
-//                    yOffset = (stepHeight * 2) + stepHeight * CGFloat(i)
-//
-//                    context.strokeLineSegments(between: [CGPoint(x: noteRect.minX - 10, y: yOffset),
-//                                                         CGPoint(x: noteRect.maxX + 10, y: yOffset)])
-//                }
-//            }
-            
-            // I could optimize and skip if it lands on a line already drawn, but I'm not trying to
-            // win any architecture awards here.
-//            if(stepsToDraw % 2 == 0) {
-//            }
+
+            if relativeNoteScalar < rangeOfLines.topScalar {
+                for i in stride(from: rangeOfLines.topScalar, through: relativeNoteScalar, by: -2) {
+                    let yOffset = yOffsetFromScalar(i, noteHeight: noteHeight)
+                    context.strokeLineSegments(between: [CGPoint(x: noteRect.minX - 10, y: yOffset),
+                                                         CGPoint(x: noteRect.maxX + 10, y: yOffset)])
+                }
+            } else if relativeNoteScalar > rangeOfLines.bottomScalar {
+                for i in stride(from: rangeOfLines.bottomScalar, through: relativeNoteScalar, by: 2) {
+                    let yOffset = yOffsetFromScalar(i, noteHeight: noteHeight)
+                    context.strokeLineSegments(between: [CGPoint(x: noteRect.minX - 10, y: yOffset),
+                                                         CGPoint(x: noteRect.maxX + 10, y: yOffset)])
+                }
+            }
         }
 
         context.setStrokeColor(UIColor.red.cgColor)
