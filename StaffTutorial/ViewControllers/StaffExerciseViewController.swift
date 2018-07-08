@@ -22,8 +22,6 @@ class StaffExerciseViewController: UIViewController {
         nextNoteToGuess = clef.generateRandomNote()
         
         for subview in stackView.subviews {
-            subview.layer.borderColor = UIColor.black.cgColor
-            subview.layer.borderWidth = 1
             (subview as! UIButton).addTarget(self, action: #selector(noteClicked(_:)), for: UIControlEvents.touchUpInside)
         }
         

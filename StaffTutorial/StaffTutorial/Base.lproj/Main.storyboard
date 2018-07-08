@@ -19,9 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMG-OO-E7m" customClass="StaffView" customModule="StaffTutorial" customModuleProvider="target">
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMG-OO-E7m" customClass="StaffView" customModule="StaffTutorial" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="444.5" height="300"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DWg-ud-kxy">
                                 <rect key="frame" x="445" y="0.0" width="222" height="375"/>

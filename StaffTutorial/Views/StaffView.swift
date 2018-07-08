@@ -107,8 +107,5 @@ public class StaffView: UIView {
                 }
             }
         }
-
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.stroke(rect)
     }
 }
