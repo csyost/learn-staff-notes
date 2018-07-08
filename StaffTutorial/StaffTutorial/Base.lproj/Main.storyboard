@@ -19,7 +19,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMG-OO-E7m" customClass="StaffView" customModule="StaffTutorial" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLV-FP-ITQ">
+                                <rect key="frame" x="192" y="119.5" width="283.5" height="136.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="114"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMG-OO-E7m" customClass="StaffView" customModule="StaffTutorial" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="444.5" height="300"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DWg-ud-kxy">
@@ -72,23 +78,35 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4e-vs-g7h">
+                                <rect key="frame" x="14" y="340.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="leading" secondItem="ZMG-OO-E7m" secondAttribute="trailing" id="1oP-5y-2TI"/>
+                            <constraint firstItem="I4e-vs-g7h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="14" id="6ey-Vj-coW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="I4e-vs-g7h" secondAttribute="bottom" constant="14" id="78M-bA-c9C"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Cac-3W-SXW"/>
+                            <constraint firstItem="oLV-FP-ITQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DYr-ZM-xh6"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FtI-BX-Yad"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="4:5" id="MU8-2c-acS"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="V0B-cP-m3k"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VMN-Py-x3P"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fY7-gp-ysv"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="2:3" id="hgh-aQ-agC"/>
+                            <constraint firstItem="oLV-FP-ITQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zuj-9a-Nqi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="scoreLabel" destination="I4e-vs-g7h" id="dTY-Rs-U4H"/>
                         <outlet property="stackView" destination="DWg-ud-kxy" id="8jf-ss-Y6Q"/>
                         <outlet property="staffView" destination="ZMG-OO-E7m" id="ESI-nT-axH"/>
+                        <outlet property="statusLabel" destination="oLV-FP-ITQ" id="KCQ-B3-Sxo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
