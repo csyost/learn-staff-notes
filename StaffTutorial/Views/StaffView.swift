@@ -10,24 +10,58 @@ import UIKit
 
 public class StaffView: UIView {
 
+    let clefImageWidthPercentage: CGFloat = 0.2
+    
     public var lineWidth: CGFloat = 5 {
-        didSet{ self.setNeedsDisplay() }
+        didSet{ setNeedsDisplay() }
     }
     public var note: Note? {
-        didSet{ self.setNeedsDisplay() }
+        didSet{ setNeedsDisplay() }
     }
     
     public var clef = Clef.treble {
-        didSet{ self.setNeedsDisplay() }
+        didSet{
+            setNeedsDisplay()
+            updateClefImage()
+        }
     }
+    
+    private var clefImageView = UIImageView()
     
     private func yOffsetFromScalar(_ scalar: Int, noteHeight: CGFloat) -> CGFloat {
         return CGFloat((0.5 + (CGFloat(scalar) / 2.0)) * noteHeight)
     }
     
+    private func initCommon() {
+        self.addSubview(clefImageView)
+        clefImageView.translatesAutoresizingMaskIntoConstraints = false
+        let contraintViews = ["clefView" : clefImageView]
+        var constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[clefView]", options: [], metrics: nil, views: contraintViews)
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[clefView]|", options: [], metrics: nil, views: contraintViews)
+        constraints.append(NSLayoutConstraint(item: clefImageView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: clefImageWidthPercentage, constant: 0.0))
+        NSLayoutConstraint.activate(constraints)
+
+        clefImageView.contentMode = UIViewContentMode.scaleAspectFit
+        updateClefImage()
+    }
+    
+    private func updateClefImage() {
+        clefImageView.image = UIImage(named: clef.imageName)
+    }
+    
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        initCommon()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initCommon()
+    }
+
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }

@@ -46,6 +46,15 @@ public enum Clef {
             return Note(noteName: NoteName.c, octave: 2)
         }
     }
+    
+    var imageName: String {
+        switch self {
+        case .treble:
+            return "treble"
+        case .bass:
+            return "bass"
+        }
+    }
 
     func generateRandomNote(accidentals: Bool = true) -> Note {
         let randValue = Note.numSteps(from: bottomMostNote, to: topMostNote)
