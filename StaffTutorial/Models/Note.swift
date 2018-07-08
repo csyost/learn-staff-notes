@@ -33,16 +33,20 @@ public struct Note {
         self.accidental = Accidental.natural
     }
     
+    public init(globalScalar: Int) {
+        self.init(noteName: NoteName(rawValue: globalScalar % 7) ?? NoteName.c, octave: globalScalar / 7)
+    }
+    
+    public func globalScalar() -> Int {
+        return self.octave * 7 + self.noteName.rawValue
+    }
+    
     static public func numSteps(from: Note, to: Note) -> Int {
-        return ((from.octave - to.octave) * 7) + (from.noteName.rawValue - to.noteName.rawValue)
+        return to.globalScalar() - from.globalScalar()
     }
     
     static public func noteOffsetFrom(_ startNote: Note, by offsetInSteps: Int) -> Note {
-        var newNote = Note()
-        let octaveDiff = offsetInSteps / 7
-        newNote.octave = startNote.octave + octaveDiff
-        newNote.noteName = NoteName(rawValue: offsetInSteps - octaveDiff * 7) ?? NoteName.c
-        newNote.accidental = startNote.accidental
-        return newNote
+        let globalScalar = startNote.globalScalar() + offsetInSteps
+        return Note(globalScalar: globalScalar)
     }
 }

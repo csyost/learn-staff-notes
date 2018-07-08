@@ -10,9 +10,6 @@ import UIKit
 
 public class StaffView: UIView {
 
-    let numberOfLinesToDraw = 5
-    let numberOfSpaces = 9
-    
     public var lineWidth: CGFloat = 5 {
         didSet{ self.setNeedsDisplay() }
     }
@@ -24,6 +21,10 @@ public class StaffView: UIView {
         didSet{ self.setNeedsDisplay() }
     }
     
+    private func yOffsetFromScalar(_ scalar: Int, noteHeight: CGFloat) -> CGFloat {
+        return CGFloat((0.5 + (CGFloat(scalar) / 2.0)) * noteHeight)
+    }
+    
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -31,40 +32,47 @@ public class StaffView: UIView {
             return
         }
         
-        let sectionHeight: CGFloat = rect.height / CGFloat(numberOfSpaces)
-        let stepHeight: CGFloat = sectionHeight / 2.0
+        // add an extra step each way to leave space for rendering the height of the notes.
+        let rangeOfSteps = (topScalar: clef.topMostNote.globalScalar(), bottomScalar: clef.bottomMostNote.globalScalar(), scalarRange: clef.topMostNote.globalScalar() - clef.bottomMostNote.globalScalar())
+        let noteHeight = rect.height / (CGFloat(rangeOfSteps.scalarRange + 2) * 0.5)
         var staffLinePoints = [CGPoint]()
-        var yOffset = sectionHeight * CGFloat(clef.firstLineIndexToDraw + 1)
 
         context.setLineWidth(lineWidth)
         context.setStrokeColor(UIColor.black.cgColor)
+        
+        let rangeOfLines = (topScalar: clef.topMostNote.globalScalar() - clef.topNoteToDraw.globalScalar(), bottomScalar: clef.topMostNote.globalScalar() - clef.bottomNoteToDraw.globalScalar())
 
-        for _ in 0 ..< numberOfLinesToDraw {
+        for i in stride(from: rangeOfLines.topScalar, through: rangeOfLines.bottomScalar, by: 2) {
+            let yOffset = yOffsetFromScalar(i, noteHeight: noteHeight)
             staffLinePoints.append(CGPoint(x: 0, y: yOffset))
             staffLinePoints.append(CGPoint(x: rect.size.width, y: yOffset))
-            yOffset += sectionHeight
         }
 
         context.strokeLineSegments(between: staffLinePoints)
 
         if let noteToDraw = note {
-            // +1 to account for space above first "lined note"
-            let stepsToDraw = Note.numSteps(from: clef.topMostNote, to: noteToDraw) + 1
-            let noteWidth = sectionHeight * 1.2
-            
-            yOffset = stepHeight + stepHeight * CGFloat(stepsToDraw)
-            let noteRect = CGRect(x: rect.midX - noteWidth / 2.0, y: yOffset - sectionHeight / 2.0, width: sectionHeight * 1.2, height: sectionHeight)
+            // Negate to convert to a positive y offset
+            let noteWidth = noteHeight * 1.2
+            let noteScalar = noteToDraw.globalScalar()
+            let yOffset = yOffsetFromScalar(rangeOfSteps.topScalar - noteScalar, noteHeight: noteHeight)
+            let noteRect = CGRect(x: rect.midX - noteWidth / 2.0, y: yOffset - noteHeight / 2.0, width: noteWidth, height: noteHeight)
             
             context.strokeEllipse(in: noteRect)
             
-            print("total height: \(rect.height)\nsection Height: \(sectionHeight)\nhalf steps: \(stepsToDraw)\nyOffset: \(yOffset)")
+//            for i in 0 ..< clef.firstLineIndexToDraw {
+//                if(i * 2 >= stepsToDraw) {
+//
+//                    yOffset = (stepHeight * 2) + stepHeight * CGFloat(i)
+//
+//                    context.strokeLineSegments(between: [CGPoint(x: noteRect.minX - 10, y: yOffset),
+//                                                         CGPoint(x: noteRect.maxX + 10, y: yOffset)])
+//                }
+//            }
             
             // I could optimize and skip if it lands on a line already drawn, but I'm not trying to
             // win any architecture awards here.
-            if(stepsToDraw % 2 == 1) {
-                context.strokeLineSegments(between: [CGPoint(x: noteRect.minX - 10, y: noteRect.midY),
-                                                     CGPoint(x: noteRect.maxX + 10, y: noteRect.midY)])
-            }
+//            if(stepsToDraw % 2 == 0) {
+//            }
         }
 
         context.setStrokeColor(UIColor.red.cgColor)

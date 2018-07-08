@@ -11,15 +11,24 @@ import Foundation
 public enum Clef {
     case treble, bass
     
-    var firstLineIndexToDraw: Int {
+    var topNoteToDraw: Note {
         switch self {
         case .treble:
-            return 2
+            return Note(noteName: NoteName.f, octave: 5)
         case .bass:
-            return 1
+            return Note(noteName: NoteName.a, octave: 4)
         }
     }
-    
+
+    var bottomNoteToDraw: Note {
+        switch self {
+        case .treble:
+            return Note(noteName: NoteName.e, octave: 4)
+        case .bass:
+            return Note(noteName: NoteName.g, octave: 2)
+        }
+    }
+
     var topMostNote: Note {
         switch self {
         case .treble:
@@ -39,10 +48,10 @@ public enum Clef {
     }
 
     func generateRandomNote(accidentals: Bool = true) -> Note {
-        let randBlah = Note.numSteps(from: topMostNote, to: bottomMostNote)
+        let randBlah = Note.numSteps(from: bottomMostNote, to: topMostNote)
         print(randBlah)
         let newStep = Int(arc4random_uniform(UInt32(randBlah)))
-        return Note.noteOffsetFrom(topMostNote, by: newStep)
+        return Note.noteOffsetFrom(bottomMostNote, by: newStep)
     }
 }
 
