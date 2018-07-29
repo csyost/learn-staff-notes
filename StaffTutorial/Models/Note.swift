@@ -61,6 +61,10 @@ public struct Note {
         self.init(noteName: NoteName(rawValue: globalScalar % 7) ?? NoteName.c, octave: globalScalar / 7)
     }
     
+    static func ==(left: Note, right: Note) -> Bool {
+        return left.octave == right.octave && left.accidental == right.accidental && left.noteName == right.noteName
+    }
+
     public func globalScalar() -> Int {
         return self.octave * 7 + self.noteName.rawValue
     }

@@ -45,7 +45,12 @@ class StaffExerciseViewController: UIViewController {
     }
     
     private func generateNewNote() {
-        nextNoteToGuess = clef.generateRandomNote(minNote: minNote, maxNote: maxNote)
+        // Generate a random note, but not if it's the same as the old one.
+        let oldNote = nextNoteToGuess
+        repeat {
+            nextNoteToGuess = clef.generateRandomNote(minNote: minNote, maxNote: maxNote)
+        } while (oldNote == nextNoteToGuess)
+        
         staffView.note = nextNoteToGuess
     }
     
