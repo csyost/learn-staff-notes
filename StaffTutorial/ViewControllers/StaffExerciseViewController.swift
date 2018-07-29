@@ -15,8 +15,10 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var answerLabel: UILabel!
+    @IBOutlet weak var starView: UIStackView!
+    @IBOutlet weak var endOfGameView: UIView!
     
-    let totalNotesToGuess = 20
+    let totalNotesToGuess = 2
     
     var clef = Clef.treble
     var minNote = Clef.treble.bottomMostNote
@@ -77,10 +79,10 @@ class StaffExerciseViewController: UIViewController {
             
             totalGuesses += 1
             generateNewNote()
-            statusLabel.text = "YAY!"
+            statusLabel.text = "NICE ONE!"
             statusLabel.textColor = UIColor.green
         } else {
-            statusLabel.text = "BOO!"
+            statusLabel.text = "GOOD TRY"
             statusLabel.textColor = UIColor.red
             answerLabel.text = "Answer: " + nextNoteToGuess.noteName.stringValue
             answerLabel.isHidden = false
@@ -88,22 +90,36 @@ class StaffExerciseViewController: UIViewController {
 
         updateScore()
 
-        UIView.animate(withDuration: 1.0,
-                       delay: 0,
-                       options: UIViewAnimationOptions.beginFromCurrentState,
-                       animations: {
-                        self.statusLabel.alpha = 1.0
-        }, completion: { (completed: Bool) in
-            if(completed) {
-                UIView.animate(withDuration: 1.0,
-                               delay: 0,
-                               options: UIViewAnimationOptions.beginFromCurrentState,
-                               animations: {
-                                self.statusLabel.alpha = 0.0
-                }, completion: nil)
-
+        if(totalGuesses == totalNotesToGuess) {
+            endOfGameView.isHidden = false
+            
+            let correctPerStar = totalNotesToGuess / starView.subviews.count
+            
+            for i in 0 ..< starView.subviews.count {
+                if(numCorrect > i * correctPerStar) {
+                    if let imageView = starView.subviews[i] as? UIImageView {
+                        imageView.image = UIImage(named: "star_filled_\(i)")
+                    }
+                }
             }
-        })
+        } else {
+            UIView.animate(withDuration: 1.0,
+                           delay: 0,
+                           options: UIViewAnimationOptions.beginFromCurrentState,
+                           animations: {
+                            self.statusLabel.alpha = 1.0
+            }, completion: { (completed: Bool) in
+                if(completed) {
+                    UIView.animate(withDuration: 1.0,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.beginFromCurrentState,
+                                   animations: {
+                                    self.statusLabel.alpha = 0.0
+                    }, completion: nil)
+                    
+                }
+            })
+        }
     }
 }
 
