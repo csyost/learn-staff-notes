@@ -18,7 +18,7 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var starView: UIStackView!
     @IBOutlet weak var endOfGameView: UIView!
     
-    let totalNotesToGuess = 2
+    let totalNotesToGuess = 20
     
     var clef = Clef.treble
     var minNote = Clef.treble.bottomMostNote
