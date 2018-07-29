@@ -14,13 +14,14 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var staffView: StaffView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
-
+    @IBOutlet weak var answerLabel: UILabel!
+    
     var clef = Clef.treble
     var minNote = Clef.treble.bottomMostNote
     var maxNote = Clef.treble.topMostNote
 
     private var nextNoteToGuess: Note = Note()
-    private var numGuesses = 0;
+    private var notesLeft = 20;
     private var numCorrect = 0;
     
     override func viewDidLoad() {
@@ -52,10 +53,11 @@ class StaffExerciseViewController: UIViewController {
         } while (oldNote == nextNoteToGuess)
         
         staffView.note = nextNoteToGuess
+        answerLabel.isHidden = true
     }
     
     private func updateScore() {
-        scoreLabel.text = String(format: "score: %d/%d (%.2f)", numCorrect, numGuesses, numGuesses == 0 ? 0 : Float(numCorrect) / Float(numGuesses))
+        scoreLabel.text = "\(numCorrect)/\(notesLeft)"
     }
 
     @IBAction func noteClicked(_ clickedButton: UIButton) {
@@ -63,18 +65,23 @@ class StaffExerciseViewController: UIViewController {
             return
         }
 
-        numGuesses += 1
-        
         let guessedNoteName = NoteName(rawValue: stackView.subviews.endIndex - guessedNoteNameIndex - 1)
 
         if(guessedNoteName == nextNoteToGuess.noteName) {
+            
+            if(answerLabel.isHidden) {
+                numCorrect += 1
+            }
+            
+            notesLeft -= 1
             generateNewNote()
             statusLabel.text = "YAY!"
             statusLabel.textColor = UIColor.green
-            numCorrect += 1
         } else {
             statusLabel.text = "BOO!"
             statusLabel.textColor = UIColor.red
+            answerLabel.text = "Answer: " + nextNoteToGuess.noteName.stringValue
+            answerLabel.isHidden = false
         }
 
         updateScore()

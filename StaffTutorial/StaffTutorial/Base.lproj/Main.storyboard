@@ -189,6 +189,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqY-3J-rSe">
+                                <rect key="frame" x="96.5" y="269" width="74" height="35"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -198,9 +204,11 @@
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Cac-3W-SXW"/>
                             <constraint firstItem="oLV-FP-ITQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DYr-ZM-xh6"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FtI-BX-Yad"/>
+                            <constraint firstItem="QqY-3J-rSe" firstAttribute="centerX" secondItem="ZMG-OO-E7m" secondAttribute="centerX" multiplier="3:5" id="Ldf-4i-FBH"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="4:5" id="MU8-2c-acS"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="V0B-cP-m3k"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VMN-Py-x3P"/>
+                            <constraint firstItem="QqY-3J-rSe" firstAttribute="top" secondItem="ZMG-OO-E7m" secondAttribute="bottom" constant="-31" id="dab-qN-mqP"/>
                             <constraint firstItem="DWg-ud-kxy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fY7-gp-ysv"/>
                             <constraint firstItem="ZMG-OO-E7m" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="2:3" id="hgh-aQ-agC"/>
                             <constraint firstItem="oLV-FP-ITQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zuj-9a-Nqi"/>
@@ -208,6 +216,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="answerLabel" destination="QqY-3J-rSe" id="fVA-z4-V7w"/>
                         <outlet property="scoreLabel" destination="I4e-vs-g7h" id="dTY-Rs-U4H"/>
                         <outlet property="stackView" destination="DWg-ud-kxy" id="8jf-ss-Y6Q"/>
                         <outlet property="staffView" destination="ZMG-OO-E7m" id="ESI-nT-axH"/>
