@@ -16,12 +16,14 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var answerLabel: UILabel!
     
+    let totalNotesToGuess = 20
+    
     var clef = Clef.treble
     var minNote = Clef.treble.bottomMostNote
     var maxNote = Clef.treble.topMostNote
 
     private var nextNoteToGuess: Note = Note()
-    private var notesLeft = 20;
+    private var totalGuesses = 0;
     private var numCorrect = 0;
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class StaffExerciseViewController: UIViewController {
     }
     
     private func updateScore() {
-        scoreLabel.text = "\(numCorrect)/\(notesLeft)"
+        scoreLabel.text = "\(numCorrect)/\(totalGuesses)"
     }
 
     @IBAction func noteClicked(_ clickedButton: UIButton) {
@@ -73,7 +75,7 @@ class StaffExerciseViewController: UIViewController {
                 numCorrect += 1
             }
             
-            notesLeft -= 1
+            totalGuesses += 1
             generateNewNote()
             statusLabel.text = "YAY!"
             statusLabel.textColor = UIColor.green
