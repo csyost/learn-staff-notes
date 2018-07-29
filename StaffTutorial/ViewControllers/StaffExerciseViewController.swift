@@ -14,11 +14,14 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var staffView: StaffView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
-    
-    var nextNoteToGuess: Note = Note()
-    let clef = Clef.treble
-    var numGuesses = 0;
-    var numCorrect = 0;
+
+    var clef = Clef.treble
+    var minNote = Clef.treble.bottomMostNote
+    var maxNote = Clef.treble.topMostNote
+
+    private var nextNoteToGuess: Note = Note()
+    private var numGuesses = 0;
+    private var numCorrect = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +45,7 @@ class StaffExerciseViewController: UIViewController {
     }
     
     private func generateNewNote() {
-        nextNoteToGuess = clef.generateRandomNote()
+        nextNoteToGuess = clef.generateRandomNote(minNote: minNote, maxNote: maxNote)
         staffView.note = nextNoteToGuess
     }
     
@@ -57,7 +60,7 @@ class StaffExerciseViewController: UIViewController {
 
         numGuesses += 1
         
-        let guessedNoteName = NoteName(rawValue: guessedNoteNameIndex)
+        let guessedNoteName = NoteName(rawValue: stackView.subviews.endIndex - guessedNoteNameIndex - 1)
 
         if(guessedNoteName == nextNoteToGuess.noteName) {
             generateNewNote()

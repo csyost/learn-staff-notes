@@ -46,7 +46,7 @@ public class StaffView: UIView {
     }
     
     private func updateClefImage() {
-        clefImageView.image = UIImage(named: clef.imageName)
+        clefImageView.image = UIImage(named: clef.stringValue)
     }
     
     override public init(frame: CGRect) {

@@ -8,6 +8,25 @@
 
 public enum NoteName: Int {
     case a, b, c, d, e, f, g
+    
+    var stringValue: String {
+        switch(self) {
+        case .a:
+            return "A"
+        case .b:
+            return "B"
+        case .c:
+            return "C"
+        case .d:
+            return "D"
+        case .e:
+            return "E"
+        case .f:
+            return "F"
+        case .g:
+            return "G"
+        }
+    }
 }
 
 public enum Accidental {
@@ -18,7 +37,12 @@ public struct Note {
     var noteName: NoteName
     var accidental: Accidental
     var octave: Int // TODO validate 0 through 12
-
+    var stringValue: String {
+        get {
+            return "\(noteName.stringValue)\(octave)"
+        }
+    }
+    
     public init() {
         self.noteName = NoteName.c
         self.accidental = Accidental.natural

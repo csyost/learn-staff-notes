@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Clef {
+public enum Clef: Int {
     case treble, bass
     
     var topNoteToDraw: Note {
@@ -47,7 +47,7 @@ public enum Clef {
         }
     }
     
-    var imageName: String {
+    var stringValue: String {
         switch self {
         case .treble:
             return "treble"
@@ -57,9 +57,13 @@ public enum Clef {
     }
 
     func generateRandomNote(accidentals: Bool = true) -> Note {
-        let maxValue = Note.numSteps(from: bottomMostNote, to: topMostNote)
+        return self.generateRandomNote(minNote: bottomMostNote, maxNote: topMostNote, accidentals: accidentals)
+    }
+    
+    func generateRandomNote(minNote: Note, maxNote: Note, accidentals: Bool = true) -> Note {
+        let maxValue = Note.numSteps(from: minNote, to: maxNote)
         let newStep = Int(arc4random_uniform(UInt32(maxValue + 1)))
-        return Note.noteOffsetFrom(bottomMostNote, by: newStep)
+        return Note.noteOffsetFrom(minNote, by: newStep)
     }
 }
 
