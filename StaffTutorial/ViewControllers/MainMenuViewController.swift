@@ -68,4 +68,6 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             staffController.clef = selectedClef
         }
     }
+    
+    @IBAction func unwindToMainMenu(segue:UIStoryboardSegue) { }
 }
