@@ -18,16 +18,16 @@ class StaffExerciseViewController: UIViewController {
     @IBOutlet weak var starView: UIStackView!
     @IBOutlet weak var endOfGameView: UIView!
     
-    let totalNotesToGuess = 25
+    private let totalNotesToGuess = 25
     
-    var clef = Clef.treble
-    var minNote = Clef.treble.bottomMostNote
-    var maxNote = Clef.treble.topMostNote
-
     private var nextNoteToGuess: Note = Note()
     private var totalGuesses = 0;
     private var numCorrect = 0;
     
+    public var clef = Clef.treble
+    public var minNote = Clef.treble.bottomMostNote
+    public var maxNote = Clef.treble.topMostNote
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,12 +63,13 @@ class StaffExerciseViewController: UIViewController {
     private func updateScore() {
         scoreLabel.text = "\(numCorrect)/\(totalGuesses)"
     }
-
+    
     @IBAction func noteClicked(_ clickedButton: UIButton) {
         guard let guessedNoteNameIndex = stackView.subviews.index(of: clickedButton) else {
             return
         }
 
+        let isEndGame = totalGuesses == totalNotesToGuess
         let guessedNoteName = NoteName(rawValue: stackView.subviews.endIndex - guessedNoteNameIndex - 1)
 
         if(guessedNoteName == nextNoteToGuess.noteName) {
@@ -81,11 +82,18 @@ class StaffExerciseViewController: UIViewController {
             generateNewNote()
             statusLabel.text = "NICE ONE!"
             statusLabel.textColor = UIColor.green
+            if(!isEndGame) {
+                playSound("yay")
+            }
         } else {
             statusLabel.text = "GOOD TRY"
             statusLabel.textColor = UIColor.red
             answerLabel.text = "Answer: " + nextNoteToGuess.noteName.stringValue
             answerLabel.isHidden = false
+            
+            if(!isEndGame) {
+                playSound("boo")
+            }
         }
 
         updateScore()
@@ -102,6 +110,8 @@ class StaffExerciseViewController: UIViewController {
                     }
                 }
             }
+            
+            playSound("end_game")
         } else {
             UIView.animate(withDuration: 1.0,
                            delay: 0,

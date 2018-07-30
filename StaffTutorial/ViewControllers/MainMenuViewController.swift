@@ -66,6 +66,8 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             staffController.minNote = noteForPickerIndex(bottomNotePickerView.selectedRow(inComponent: 0))
             staffController.maxNote = noteForPickerIndex(topNotePickerView.selectedRow(inComponent: 0))
             staffController.clef = selectedClef
+            
+            playSound("start_game")
         }
     }
     
