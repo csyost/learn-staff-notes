@@ -20,8 +20,12 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         bottomNotePickerView.selectRow(bottomNotePickerView.numberOfRows(inComponent: 0) - 1, inComponent: 0, animated: false)
     }
     
-    private func noteForPickerIndex(_  index: Int) -> Note {
-        return Note.noteOffsetFrom(selectedClef.topMostNote, by: -index)
+    private func noteForPickerIndex(picker: UIPickerView, index: Int) -> Note {
+        if(picker == bottomNotePickerView) {
+            return Note.noteOffsetFrom(selectedClef.topMostNote, by: -index - 1)
+        } else {
+            return Note.noteOffsetFrom(selectedClef.topMostNote, by: -index)
+        }
     }
     
     private func updateSelectedClef() {
@@ -37,7 +41,7 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if(pickerView == clefPickerView) {
             return 2
         }
-        return Note.numSteps(from: selectedClef.bottomMostNote, to: selectedClef.topMostNote) + 1
+        return Note.numSteps(from: selectedClef.bottomMostNote, to: selectedClef.topMostNote)
     }
 
     // MARK: UIPickerViewDelegate
@@ -46,7 +50,7 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return Clef(rawValue: row)?.stringValue
         }
         
-        return noteForPickerIndex(row).stringValue
+        return noteForPickerIndex(picker: pickerView, index: row).stringValue
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -63,8 +67,8 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let staffController = segue.destination as? StaffExerciseViewController {
-            staffController.minNote = noteForPickerIndex(bottomNotePickerView.selectedRow(inComponent: 0))
-            staffController.maxNote = noteForPickerIndex(topNotePickerView.selectedRow(inComponent: 0))
+            staffController.minNote = noteForPickerIndex(picker: bottomNotePickerView, index: bottomNotePickerView.selectedRow(inComponent: 0))
+            staffController.maxNote = noteForPickerIndex(picker: topNotePickerView, index: topNotePickerView.selectedRow(inComponent: 0))
             staffController.clef = selectedClef
             
             playSound("start_game")
