@@ -101,10 +101,12 @@ class StaffExerciseViewController: UIViewController {
         if(totalGuesses == totalNotesToGuess) {
             endOfGameView.isHidden = false
             
-            let correctPerStar = totalNotesToGuess / starView.subviews.count
+            // You have to get at least some percentage to get 1 star
+            let totalMin = (Int)((Float)(totalNotesToGuess) * 0.4)
+            let correctPerStar = (totalNotesToGuess - totalMin) / starView.subviews.count
             
             for i in 0 ..< starView.subviews.count {
-                if(numCorrect > i * correctPerStar) {
+                if(numCorrect > totalMin + i * correctPerStar) {
                     if let imageView = starView.subviews[i] as? UIImageView {
                         imageView.image = UIImage(named: "star_filled_\(i)")
                     }
